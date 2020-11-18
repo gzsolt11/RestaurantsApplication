@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainScreenFragment">
+
+    <fragment
+        android:id="@+id/mainScreenFragment"
+        android:name="com.example.restaurant.mainScreen.MainScreenFragment"
+        android:label="MainScreenFragment" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_detailScreenFragment"
+            app:destination="@id/detailScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailScreenFragment"
+        android:name="com.example.restaurant.detailScreen.DetailScreenFragment"
+        android:label="DetailScreenFragment" >
+        <action
+            android:id="@+id/action_detailScreenFragment_to_profileScreenFragment"
+            app:destination="@id/profileScreenFragment" />
+        <action
+            android:id="@+id/action_detailScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreenFragment"
+        android:name="com.example.restaurant.profileScreen.ProfileScreenFragment"
+        android:label="ProfileScreenFragment" >
+        <action
+            android:id="@+id/action_profileScreenFragment_to_detailScreenFragment"
+            app:destination="@id/detailScreenFragment" />
+        <action
+            android:id="@+id/action_profileScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+</navigation>
