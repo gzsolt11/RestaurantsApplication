@@ -1,17 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".profileScreen.ProfileScreenFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="profile screen" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            tools:context=".profileScreen.ProfileScreenFragment">
+
+
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/background_image2"
+                android:shadowColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/adressTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/profilePictureImageView"
+                android:layout_width="@dimen/size_500px"
+                android:layout_height="@dimen/size_500px"
+                android:layout_marginTop="@dimen/margin_70px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userNameTextView"
+                style="@style/profileElement"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginBottom="@dimen/margin_70px"
+                android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:text="Aladar"
+                android:textColor="@color/backgroundColor"
+                android:textSize="@dimen/textSize_40sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profilePictureImageView" />
+
+            <ImageView
+                android:id="@+id/baseadressTextView"
+                android:layout_width="@dimen/height_50dp"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginLeft="@dimen/height_30dp"
+                android:background="@color/backgroundColor3"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_location"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/adressTextView" />
+
+            <TextView
+                android:id="@+id/adressTextView"
+                style="@style/profileElement"
+                android:layout_height="@dimen/height_50dp"
+                android:background="@color/editTextColor"
+                android:gravity="center"
+                android:layout_marginLeft="0dp"
+                android:text="Janos Utca 5"
+                android:textColor="@color/backgroundColor2"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/baseadressTextView"
+                app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
+
+            <ImageView
+                android:id="@+id/basephoneNumberTextView"
+                android:layout_width="@dimen/height_50dp"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginLeft="@dimen/height_30dp"
+                android:background="@color/backgroundColor3"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_phone"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/phoneNumberTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/phoneNumberTextView" />
+
+            <TextView
+                android:id="@+id/phoneNumberTextView"
+                style="@style/profileElement"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginLeft="0dp"
+                android:background="@color/editTextColor"
+                android:gravity="center"
+                android:text="075265946"
+                android:textColor="@color/backgroundColor2"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/basephoneNumberTextView"
+                app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
+
+            <ImageView
+                android:id="@+id/baseEmailTextView"
+                android:layout_width="@dimen/height_50dp"
+                android:layout_height="@dimen/height_50dp"
+                android:background="@color/backgroundColor3"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_mail"
+                android:textSize="@dimen/textSize_20sp"
+                android:layout_marginLeft="@dimen/height_30dp"
+                app:layout_constraintBottom_toBottomOf="@+id/emailTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/emailTextView" />
+
+            <TextView
+                android:id="@+id/emailTextView"
+                style="@style/profileElement"
+                android:layout_height="@dimen/height_50dp"
+                android:background="@color/editTextColor"
+                android:gravity="center"
+                android:text="valami@dsadsa.com"
+                android:textColor="@color/backgroundColor2"
+                android:textSize="@dimen/textSize_20sp"
+                android:layout_marginLeft="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/baseEmailTextView"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView" />
+
+            <TextView
+                android:id="@+id/favouriteTextView"
+                style="@style/profileElement"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_50dp"
+                android:textSize="@dimen/textSize_30sp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:text="Favourite restaurants"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                style="@style/profileElement"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/size_800px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favouriteTextView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

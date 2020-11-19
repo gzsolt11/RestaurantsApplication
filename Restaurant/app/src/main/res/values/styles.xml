@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_800px">800px</dimen>
+    <dimen name="size_500px">500px</dimen>
+    <dimen name="size_250dp">250dp</dimen>
+    <dimen name="size_150px">150px</dimen>
+
+    <dimen name="margin_70px">70px</dimen>
+    <dimen name="margin_50px">50px</dimen>
+    <dimen name="margin_30px">30px</dimen>
+    <dimen name="margin_50dp">50dp</dimen>
+
+    <dimen name="height_50dp">50dp</dimen>
+    <dimen name="height_30dp">30dp</dimen>
+
+    <dimen name="textSize_20sp">20sp</dimen>
+    <dimen name="textSize_30sp">30sp</dimen>
+    <dimen name="textSize_40sp">40sp</dimen>
+
+    <style name="profileElement">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_50dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_70px</item>
+        <item name="android:layout_marginLeft">@dimen/margin_70px</item>
+        <item name="android:layout_marginTop">@dimen/margin_50px</item>
+    </style>
+
+    <style name="restaurantDetailElement">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_50dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_70px</item>
+        <item name="android:layout_marginLeft">@dimen/margin_70px</item>
+        <item name="android:layout_marginTop">@dimen/margin_30px</item>
+        <item name="android:textSize">@dimen/textSize_20sp</item>
+    </style>
+
+
+</resources>
