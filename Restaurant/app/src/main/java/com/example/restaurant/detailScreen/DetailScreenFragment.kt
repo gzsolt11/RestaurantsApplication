@@ -19,6 +19,14 @@ class DetailScreenFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentDetailScreenBinding.inflate(inflater, container, false)
 
+        binding.dropDownImageView.setOnClickListener{
+            if(binding.detailsConstraintLayout.visibility == View.GONE){
+                binding.detailsConstraintLayout.visibility = View.VISIBLE
+            } else{
+                binding.detailsConstraintLayout.visibility = View.GONE
+            }
+        }
+
         return binding.root
     }
 

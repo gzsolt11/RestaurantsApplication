@@ -1,17 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".detailScreen.DetailScreenFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="detail screen" />
+        android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            tools:context=".detailScreen.DetailScreenFragment">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/restaurantImagesRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_250dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/restaurantNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/margin_30px"
+                android:layout_marginEnd="@dimen/margin_30px"
+                android:gravity="center"
+                android:text="Name of the restaurant"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/textSize_30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurantImagesRecyclerView" />
+
+            <TextView
+                android:id="@+id/detailsTextView"
+                style="@style/profileElement"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:height="@dimen/height_30dp"
+                android:text="Details:"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintEnd_toStartOf="@+id/dropDownImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/restaurantNameTextView" />
+
+            <ImageView
+                android:id="@+id/dropDownImageView"
+                android:layout_width="@dimen/size_150px"
+                android:layout_height="@dimen/size_150px"
+                android:src="@drawable/ic_baseline_arrow_drop_down_circle_24"
+                android:layout_marginRight="@dimen/margin_50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/detailsTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/detailsTextView" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/detailsConstraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_30px"
+                android:layout_marginEnd="@dimen/margin_30px"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dropDownImageView"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/baseAdressTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="Adress: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/adressTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="2942 N Lincoln Ave"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/baseAdressTextView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/baseCityTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="City: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseAdressTextView" />
+
+                <TextView
+                    android:id="@+id/cityTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Chicago"
+                    app:layout_constraintBottom_toBottomOf="@+id/baseCityTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/baseCityTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/baseAdressTextView" />
+
+                <TextView
+                    android:id="@+id/baseStateTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="State: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseCityTextView" />
+
+                <TextView
+                    android:id="@+id/stateTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="0dp"
+                    android:text="IL"
+                    app:layout_constraintBottom_toBottomOf="@+id/baseStateTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/baseStateTextView"
+                    app:layout_constraintTop_toTopOf="@+id/baseStateTextView" />
+
+                <TextView
+                    android:id="@+id/baseAreaTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="Area: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseStateTextView" />
+
+                <TextView
+                    android:id="@+id/areaTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Chicago / Illinois"
+                    app:layout_constraintBottom_toBottomOf="@+id/baseAreaTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/baseStateTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/baseStateTextView" />
+
+                <TextView
+                    android:id="@+id/basePostalCodeTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="Postal Code: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseAreaTextView" />
+
+                <TextView
+                    android:id="@+id/postalCodeTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="60657"
+                    app:layout_constraintBottom_toBottomOf="@+id/basePostalCodeTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/basePostalCodeTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/baseAreaTextView" />
+
+                <TextView
+                    android:id="@+id/baseCountryTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="Country: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/basePostalCodeTextView" />
+
+                <TextView
+                    android:id="@+id/countryCodeTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="US"
+                    app:layout_constraintBottom_toBottomOf="@+id/baseCountryTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/baseCountryTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/basePostalCodeTextView" />
+
+
+                <TextView
+                    android:id="@+id/basePhoneTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:text="Phone Number: "
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseCountryTextView" />
+
+                <TextView
+                    android:id="@+id/phoneNumberTextView"
+                    style="@style/restaurantDetailElement"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/height_30dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="US"
+                    app:layout_constraintBottom_toBottomOf="@+id/basePhoneTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/basePhoneTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/baseCountryTextView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/callNowTextView"
+                style="@style/restaurantDetailElement"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_30dp"
+                android:gravity="center"
+                android:text="Call now!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailsConstraintLayout" />
+
+            <ImageView
+                android:id="@+id/callNowImageView"
+                style="@style/restaurantDetailElement"
+                android:layout_width="@dimen/size_150px"
+                android:layout_height="@dimen/size_150px"
+                android:background="@color/backgroundColor"
+                android:gravity="center"
+                android:src="@drawable/ic_phone"
+                android:text="Call now!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/callNowTextView" />
+
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginTop="@dimen/height_30dp"
+                android:layout_marginBottom="@dimen/height_50dp"
+                android:text="Upload new images!"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/callNowImageView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
