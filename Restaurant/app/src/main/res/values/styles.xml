@@ -2,6 +2,7 @@
 <resources>
     <dimen name="size_800px">800px</dimen>
     <dimen name="size_500px">500px</dimen>
+    <dimen name="size_300px">300px</dimen>
     <dimen name="size_250dp">250dp</dimen>
     <dimen name="size_150px">150px</dimen>
 
