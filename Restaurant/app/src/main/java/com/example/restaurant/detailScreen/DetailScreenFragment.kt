@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.restaurant.MainActivity
+import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.databinding.FragmentDetailScreenBinding
 
 class DetailScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailScreenBinding
+    lateinit var viewModel: RestaurantViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,8 @@ class DetailScreenFragment : Fragment() {
                 binding.detailsConstraintLayout.visibility = View.GONE
             }
         }
+
+        viewModel = (activity as MainActivity).viewModel
 
         return binding.root
     }

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/size_500px"
-    android:background="@drawable/background_image">
+    android:background="@color/backgroundColor"
+    android:layout_marginBottom="@dimen/margin_30px"
+    android:layout_marginStart="@dimen/margin_30px"
+    android:layout_marginEnd="@dimen/margin_30px">
 
     <ImageView
         android:id="@+id/restaurantImageView"
@@ -32,7 +35,7 @@
     <TextView
         android:id="@+id/adressTextView"
         android:layout_width="0dp"
-        android:layout_height="@dimen/height_30dp"
+        android:layout_height="@dimen/height_35dp"
         android:layout_marginStart="@dimen/margin_50px"
         android:layout_marginTop="@dimen/margin_30px"
         android:layout_marginEnd="@dimen/margin_50px"
@@ -59,6 +62,9 @@
         android:layout_width="200px"
         android:layout_height="@dimen/height_50dp"
         android:layout_marginTop="@dimen/margin_30px"
+        android:text="3"
+        android:gravity="center"
+        android:textSize="@dimen/textSize_30sp"
         app:layout_constraintStart_toEndOf="@+id/basePriceTextView"
         app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
 

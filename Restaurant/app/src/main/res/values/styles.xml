@@ -12,6 +12,7 @@
     <dimen name="margin_50dp">50dp</dimen>
 
     <dimen name="height_50dp">50dp</dimen>
+    <dimen name="height_35dp">35dp</dimen>
     <dimen name="height_30dp">30dp</dimen>
 
     <dimen name="textSize_20sp">20sp</dimen>

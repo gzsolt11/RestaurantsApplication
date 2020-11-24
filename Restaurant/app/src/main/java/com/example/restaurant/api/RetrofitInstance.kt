@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitInstance {
 
     companion object{
-        private var BASE_URL = "http://opentable.herokuapp.com/api"
+        private var BASE_URL = "http://opentable.herokuapp.com/api/"
 
         private val retrofit by lazy{
             val logging = HttpLoggingInterceptor()

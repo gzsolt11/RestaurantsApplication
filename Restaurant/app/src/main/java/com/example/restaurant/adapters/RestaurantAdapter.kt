@@ -44,4 +44,9 @@ class RestaurantAdapter: RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHo
     override fun getItemCount(): Int {
         return restaurantList.size
     }
+
+    fun setData(restaurants: List<Restaurant>){
+        restaurantList = restaurants
+        notifyDataSetChanged()
+    }
 }

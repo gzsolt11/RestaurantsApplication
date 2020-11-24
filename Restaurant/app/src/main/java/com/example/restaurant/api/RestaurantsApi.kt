@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface RestaurantsApi {
 
-    @GET("/restaurants")
+    @GET("restaurants")
     suspend fun getRestaurants(
         @Query("country")
         countryCode: String = "US",
