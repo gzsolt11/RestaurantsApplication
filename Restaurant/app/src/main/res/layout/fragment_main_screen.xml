@@ -8,6 +8,7 @@
     tools:context=".mainScreen.MainScreenFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainRestaurantRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

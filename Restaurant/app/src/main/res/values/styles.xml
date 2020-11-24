@@ -2,6 +2,7 @@
 <resources>
     <dimen name="size_800px">800px</dimen>
     <dimen name="size_500px">500px</dimen>
+    <dimen name="size_300px">300px</dimen>
     <dimen name="size_250dp">250dp</dimen>
     <dimen name="size_150px">150px</dimen>
 
@@ -11,6 +12,7 @@
     <dimen name="margin_50dp">50dp</dimen>
 
     <dimen name="height_50dp">50dp</dimen>
+    <dimen name="height_35dp">35dp</dimen>
     <dimen name="height_30dp">30dp</dimen>
 
     <dimen name="textSize_20sp">20sp</dimen>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_500px"
+    android:background="@color/backgroundColor"
+    android:layout_marginBottom="@dimen/margin_30px"
+    android:layout_marginStart="@dimen/margin_30px"
+    android:layout_marginEnd="@dimen/margin_30px">
+
+    <ImageView
+        android:id="@+id/restaurantImageView"
+        android:layout_width="@dimen/size_300px"
+        android:layout_height="@dimen/size_300px"
+        android:layout_marginLeft="@dimen/margin_50px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/margin_50dp"
+        android:layout_marginStart="@dimen/margin_50px"
+        android:layout_marginTop="@dimen/margin_50px"
+        android:layout_marginEnd="@dimen/margin_50px"
+        android:gravity="center"
+        android:text="XO Prime Steaks Pepper Pike"
+        android:textSize="@dimen/textSize_20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/restaurantImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adressTextView"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/height_35dp"
+        android:layout_marginStart="@dimen/margin_50px"
+        android:layout_marginTop="@dimen/margin_30px"
+        android:layout_marginEnd="@dimen/margin_50px"
+        android:gravity="center"
+        android:text="29425 Chagrin Blvd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/restaurantImageView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <TextView
+        android:id="@+id/basePriceTextView"
+        android:layout_width="200px"
+        android:layout_height="@dimen/height_50dp"
+        android:layout_marginLeft="@dimen/margin_30px"
+        android:layout_marginTop="@dimen/margin_30px"
+        android:gravity="center"
+        android:text="Price:"
+        android:textSize="@dimen/textSize_20sp"
+        app:layout_constraintStart_toEndOf="@+id/restaurantImageView"
+        app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="200px"
+        android:layout_height="@dimen/height_50dp"
+        android:layout_marginTop="@dimen/margin_30px"
+        android:text="3"
+        android:gravity="center"
+        android:textSize="@dimen/textSize_30sp"
+        app:layout_constraintStart_toEndOf="@+id/basePriceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="200px"
+        android:layout_height="@dimen/height_50dp"
+        android:layout_marginTop="@dimen/margin_30px"
+        android:layout_marginRight="@dimen/margin_30px"
+        android:src="@drawable/ic_white_star"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
