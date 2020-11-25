@@ -1,5 +1,7 @@
 package com.example.restaurant.mainScreen
 
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,33 +10,49 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restaurant.MainActivity
 import com.example.restaurant.adapters.RestaurantAdapter
-import com.example.restaurant.data.MyDatabase
 import com.example.restaurant.data.Resource
-import com.example.restaurant.data.repositories.RestaurantAppRepository
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
-import com.example.restaurant.data.viewmodels.RestaurantViewModelFactory
+import com.example.restaurant.data.viewmodels.UserViewModel
 import com.example.restaurant.databinding.FragmentMainScreenBinding
-import kotlinx.android.synthetic.main.fragment_main_screen.*
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     lateinit var viewModel: RestaurantViewModel
+    lateinit var userViewModel: UserViewModel
     lateinit var restaurantAdapter: RestaurantAdapter
+    lateinit var sp: SharedPreferences
+    private val args by navArgs<MainScreenFragmentArgs>()
 
     val TAG = "MainScreenFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sp = this.requireContext().getSharedPreferences("userid",MODE_PRIVATE);
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         viewModel = (activity as MainActivity).viewModel
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+
+        (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
+            if(it.title.toString() == "Profile"){
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToProfileScreenFragment(args.user)
+                findNavController().navigate(action)
+            }
+            false
+        }
+
 
         setUpRecyclerView()
 
@@ -52,8 +70,8 @@ class MainScreenFragment : Fragment() {
                     }
                 }
             }
-
         })
+
 
 
         return binding.root

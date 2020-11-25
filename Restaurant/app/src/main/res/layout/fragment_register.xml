@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".loginScreen.LoginFragment"
+            android:background="@color/backgroundColor">
+
+            <TextView
+                android:id="@+id/loginTextView"
+                android:layout_width="500px"
+                android:layout_height="@dimen/margin_50dp"
+                android:layout_marginTop="@dimen/margin_50dp"
+                android:gravity="center"
+                android:text="Registration"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_30sp"
+                android:background="@color/backgroundColor3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/firstNameTextView"
+                android:text="Firstname"
+                style="@style/loginTextViewElement"
+                android:layout_marginTop="@dimen/margin_50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
+
+            <EditText
+                android:id="@+id/firstNameEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameTextView" />
+
+            <TextView
+                android:id="@+id/lastNameTextView"
+                android:text="Lastname"
+                style="@style/loginTextViewElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstNameEditText" />
+
+            <EditText
+                android:id="@+id/lastNameEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameTextView" />
+
+
+            <TextView
+                android:id="@+id/passwordTextView"
+                android:text="Password"
+                style="@style/loginTextViewElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastNameEditText" />
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTextView" />
+
+            <TextView
+                android:id="@+id/phoneNumberTextView"
+                android:text="Phone number"
+                style="@style/loginTextViewElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+
+            <EditText
+                android:id="@+id/phoneNumberEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView" />
+
+
+            <TextView
+                android:id="@+id/emailTextView"
+                android:text="E-mail adress"
+                style="@style/loginTextViewElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneNumberEditText" />
+
+            <EditText
+                android:id="@+id/emailEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
+            <TextView
+                android:id="@+id/adressTextView"
+                android:text="Adress"
+                style="@style/loginTextViewElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailEditText" />
+
+            <EditText
+                android:id="@+id/adressEditText"
+                style="@style/loginEditTextElement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/margin_50dp"
+                android:layout_marginStart="@dimen/margin_70dp"
+                android:layout_marginTop="@dimen/margin_30dp"
+                android:layout_marginEnd="@dimen/margin_70dp"
+                android:layout_marginBottom="@dimen/margin_70dp"
+                android:backgroundTint="@color/backgroundColor3"
+                android:text="Register"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adressEditText" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>
