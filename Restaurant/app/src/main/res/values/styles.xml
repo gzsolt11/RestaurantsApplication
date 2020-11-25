@@ -6,11 +6,15 @@
     <dimen name="size_250dp">250dp</dimen>
     <dimen name="size_150px">150px</dimen>
 
+    <dimen name="margin_70dp">70dp</dimen>
     <dimen name="margin_70px">70px</dimen>
     <dimen name="margin_50px">50px</dimen>
     <dimen name="margin_30px">30px</dimen>
     <dimen name="margin_50dp">50dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
 
+    <dimen name="height_75dp">75dp</dimen>
     <dimen name="height_50dp">50dp</dimen>
     <dimen name="height_35dp">35dp</dimen>
     <dimen name="height_30dp">30dp</dimen>
@@ -34,6 +38,38 @@
         <item name="android:layout_marginLeft">@dimen/margin_70px</item>
         <item name="android:layout_marginTop">@dimen/margin_30px</item>
         <item name="android:textSize">@dimen/textSize_20sp</item>
+    </style>
+
+
+    <style name="loginTextViewElement">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_50dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_30dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_30dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_10dp</item>
+        <item name="android:textSize">@dimen/textSize_20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/backgroundColor3</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="loginEditTextElement">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_50dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_50dp</item>
+        <item name="android:layout_marginRight">@dimen/margin_50dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:textSize">@dimen/textSize_20sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/backgroundColor2</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="bottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/backgroundColor3</item>
+        <item name="itemBackground">@color/backgroundColor3</item>
+        <item name="itemIconTint">@color/backgroundColor</item>
+        <item name="itemTextColor">@color/backgroundColor</item>
     </style>
 
 

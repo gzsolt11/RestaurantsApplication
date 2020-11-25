@@ -1,13 +1,16 @@
 package com.example.restaurant.detailScreen
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.restaurant.MainActivity
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.databinding.FragmentDetailScreenBinding
+import com.example.restaurant.mainScreen.MainScreenFragmentDirections
 
 class DetailScreenFragment : Fragment() {
 
@@ -28,6 +31,19 @@ class DetailScreenFragment : Fragment() {
             } else{
                 binding.detailsConstraintLayout.visibility = View.GONE
             }
+        }
+
+        (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
+            if(it.title.toString() == "Profile"){
+                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToProfileScreenFragment()
+                findNavController().navigate(action)
+            }
+            if(it.title.toString() == "Home"){
+                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToMainScreenFragment()
+                findNavController().navigate(action)
+            }
+
+            false
         }
 
         viewModel = (activity as MainActivity).viewModel

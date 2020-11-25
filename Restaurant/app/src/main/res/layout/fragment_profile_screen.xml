@@ -131,6 +131,20 @@
                 app:layout_constraintStart_toEndOf="@+id/baseEmailTextView"
                 app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView" />
 
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_50dp"
+                android:layout_marginTop="@dimen/margin_30px"
+                android:layout_marginStart="@dimen/margin_50dp"
+                android:layout_marginEnd="@dimen/margin_50dp"
+                android:backgroundTint="@color/backgroundColor3"
+                android:textColor="@color/white"
+                android:text="Log out"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+
             <TextView
                 android:id="@+id/favouriteTextView"
                 style="@style/profileElement"
@@ -142,7 +156,7 @@
                 android:text="Favourite restaurants"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emailTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/logoutButton" />
 
             <androidx.recyclerview.widget.RecyclerView
                 style="@style/profileElement"

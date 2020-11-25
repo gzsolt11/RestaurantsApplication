@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/mainScreenFragment">
 
     <fragment
         android:id="@+id/mainScreenFragment"
         android:name="com.example.restaurant.mainScreen.MainScreenFragment"
-        android:label="MainScreenFragment" >
+        android:label="MainScreenFragment"
+        tools:layout="@layout/fragment_main_screen">
         <action
             android:id="@+id/action_mainScreenFragment_to_profileScreenFragment"
             app:destination="@id/profileScreenFragment" />
         <action
             android:id="@+id/action_mainScreenFragment_to_detailScreenFragment"
             app:destination="@id/detailScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.restaurant.data.User.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailScreenFragment"
@@ -25,6 +38,17 @@
         <action
             android:id="@+id/action_detailScreenFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_detailScreenFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.restaurant.data.User.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_detailScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileScreenFragment"
@@ -35,6 +59,37 @@
             app:destination="@id/detailScreenFragment" />
         <action
             android:id="@+id/action_profileScreenFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_profileScreenFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.restaurant.data.User.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_profileScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.restaurant.registerScreen.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.restaurant.loginScreen.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
     </fragment>
 </navigation>
