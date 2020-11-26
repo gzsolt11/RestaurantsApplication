@@ -14,12 +14,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.restaurant.MainActivity
-import com.example.restaurant.R
 import com.example.restaurant.data.User.User
 import com.example.restaurant.data.viewmodels.UserViewModel
 import com.example.restaurant.databinding.FragmentLoginBinding
-import com.example.restaurant.databinding.FragmentRegisterBinding
-import com.example.restaurant.registerScreen.RegisterFragmentDirections
 
 
 class LoginFragment : Fragment() {

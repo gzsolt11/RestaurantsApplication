@@ -2,7 +2,7 @@ package com.example.restaurant.data.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.restaurant.data.responses.Restaurant
+import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 
 @Dao
 interface RestaurantDao {

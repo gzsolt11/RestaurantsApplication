@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.restaurant.R
-import com.example.restaurant.data.responses.Restaurant
-import com.example.restaurant.databinding.FragmentMainScreenBinding
+import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
 class RestaurantAdapter: RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
