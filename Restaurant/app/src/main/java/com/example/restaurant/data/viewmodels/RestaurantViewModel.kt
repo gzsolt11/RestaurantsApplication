@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.restaurant.data.Resource
 import com.example.restaurant.data.repositories.RestaurantAppRepository
-import com.example.restaurant.data.responses.Restaurants
+import com.example.restaurant.data.restaurantEntityAndResponse.Restaurants
 import kotlinx.coroutines.launch
 import retrofit2.Response
 

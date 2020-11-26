@@ -27,4 +27,8 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun readUserById(userId: Int): LiveData<List<User>>{
+        return repository.readUserById(userId)
+    }
+
 }

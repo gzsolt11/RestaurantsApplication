@@ -1,4 +1,4 @@
-package com.example.restaurant.data.responses
+package com.example.restaurant.data.restaurantEntityAndResponse
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
