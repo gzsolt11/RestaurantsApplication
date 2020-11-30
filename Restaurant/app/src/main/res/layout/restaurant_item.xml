@@ -7,7 +7,8 @@
     android:background="@color/backgroundColor"
     android:layout_marginBottom="@dimen/margin_30px"
     android:layout_marginStart="@dimen/margin_30px"
-    android:layout_marginEnd="@dimen/margin_30px">
+    android:layout_marginEnd="@dimen/margin_30px"
+    android:id="@+id/restaurantItem">
 
     <ImageView
         android:id="@+id/restaurantImageView"
