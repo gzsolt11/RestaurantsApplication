@@ -1,8 +1,12 @@
 package com.example.restaurant.data.restaurantEntityAndResponse
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 @Entity(tableName="restaurant_table")
 data class Restaurant(
     @PrimaryKey(autoGenerate = true)
@@ -22,4 +26,4 @@ data class Restaurant(
     val price: Int,
     val reserve_url: String,
     val state: String
-)
+): Parcelable

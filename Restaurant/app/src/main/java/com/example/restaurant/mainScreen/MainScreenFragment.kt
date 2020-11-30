@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restaurant.MainActivity
 import com.example.restaurant.adapters.RestaurantAdapter
 import com.example.restaurant.data.Resource
+import com.example.restaurant.data.User.User
+import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
+import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.data.viewmodels.UserViewModel
 import com.example.restaurant.databinding.FragmentMainScreenBinding
@@ -26,6 +29,7 @@ class MainScreenFragment : Fragment() {
     lateinit var viewModel: RestaurantViewModel
     lateinit var userViewModel: UserViewModel
     lateinit var restaurantAdapter: RestaurantAdapter
+    lateinit var restaurantImageViewModel: RestaurantImageViewModel
     lateinit var sp: SharedPreferences
     private val args by navArgs<MainScreenFragmentArgs>()
 
@@ -41,8 +45,16 @@ class MainScreenFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         viewModel = (activity as MainActivity).viewModel
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
 
 
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
@@ -54,14 +66,15 @@ class MainScreenFragment : Fragment() {
         }
 
 
-        setUpRecyclerView()
+        setUpRecyclerView(args.user)
+
+
 
         viewModel.restaurants.observe(viewLifecycleOwner, Observer {response ->
             when(response){
                 is Resource.Success -> {
                     response.data?.let{restaurantsResponse ->
                         restaurantAdapter.setData(restaurantsResponse.restaurants)
-
                     }
                 }
                 is Resource.Error ->{
@@ -72,19 +85,19 @@ class MainScreenFragment : Fragment() {
             }
         })
 
+        restaurantImageViewModel.readAllRestaurantImages.observe(viewLifecycleOwner, Observer {
+            restaurantAdapter.setImageData(it)
+        })
 
-
-        return binding.root
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) = MainScreenFragment()
-    }
 
-    private fun setUpRecyclerView(){
-        restaurantAdapter = RestaurantAdapter()
+    private fun setUpRecyclerView(user: User?){
+        restaurantAdapter = RestaurantAdapter(user)
         binding.mainRestaurantRecyclerView.adapter = restaurantAdapter
-        binding.mainRestaurantRecyclerView.layoutManager = LinearLayoutManager(activity)
+        binding.mainRestaurantRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
     }
+
+
 }
