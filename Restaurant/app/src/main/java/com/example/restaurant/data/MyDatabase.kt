@@ -7,15 +7,13 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.restaurant.data.User.User
 import com.example.restaurant.data.converters.Converters
-import com.example.restaurant.data.daos.ProfileImageDao
-import com.example.restaurant.data.daos.RestaurantDao
-import com.example.restaurant.data.daos.RestaurantImageDao
-import com.example.restaurant.data.daos.UserDao
+import com.example.restaurant.data.daos.*
+import com.example.restaurant.data.favouriteEntity.Favourite
 import com.example.restaurant.data.imageEntity.ProfileImage
 import com.example.restaurant.data.imageEntity.RestaurantImage
 import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 
-@Database(entities=[User::class, Restaurant::class, ProfileImage::class, RestaurantImage::class],version = 1, exportSchema = false)
+@Database(entities=[User::class, Restaurant::class, ProfileImage::class, RestaurantImage::class, Favourite::class],version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class MyDatabase: RoomDatabase() {
 
@@ -26,6 +24,8 @@ abstract class MyDatabase: RoomDatabase() {
     abstract  fun profileImageDao(): ProfileImageDao
 
     abstract fun restaurantImageDao(): RestaurantImageDao
+
+    abstract fun favouriteDao(): FavouriteDao
 
     companion object{
         @Volatile

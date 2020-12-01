@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.restaurant.R
 import com.example.restaurant.data.User.User
+import com.example.restaurant.data.favouriteEntity.Favourite
 import com.example.restaurant.data.imageEntity.RestaurantImage
 import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.UserViewModel
 import com.example.restaurant.mainScreen.MainScreenFragmentDirections
+import com.example.restaurant.profileScreen.ProfileScreenFragmentDirections
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
-class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
+class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     private var restaurantList = emptyList<Restaurant>()
     private var restaurantImageList = emptyList<RestaurantImage>()
+    private var favouirtedRestaurantList = emptyList<Favourite>()
 
     inner class RestaurantViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     }
@@ -39,18 +42,21 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
         holder.itemView.apply{
-            var position2 = 0
+            var positionUserPic = 0
+            var positionNonUserPic = 0
             var kapott = false
             for(i in 0..restaurantImageList.size-1){
                 if(restaurantImageList[i].restaurantId == currentItem.id){
-                    position2 = 0
-                    if(user != null && restaurantImageList[i].userId == user!!.id){
-                        if(restaurantImageList[i].id > restaurantImageList[position2].id) {
-                            position2 = i
+                    if(user != null ){
+                        if(restaurantImageList[i].userId == user!!.id) {
+                            positionUserPic = i
+                            kapott = true
+                        }else{
+                            positionNonUserPic = i
                             kapott = true
                         }
                     }else{
-                        position2 = i
+                        positionNonUserPic = i
                         kapott = true
                     }
                 }
@@ -62,11 +68,28 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
                     .centerCrop()
                     .into(restaurantImageView)
             } else{
+                var position2 = 0
+                if(positionUserPic == 0){
+                    position2 = positionNonUserPic
+                } else{
+                    position2 = positionUserPic
+                }
                 Glide.with(this)
                     .load(restaurantImageList[position2].photo)
                     .placeholder(R.drawable.restaurant_placeholder)
                     .centerCrop()
                     .into(restaurantImageView)
+            }
+
+            if(user != null) {
+                for (element in favouirtedRestaurantList) {
+                    if (element.userId == user!!.id && element.restaurantId == currentItem.id){
+                        favouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                        break
+                    } else{
+                        favouriteImageView.setImageResource(R.drawable.ic_white_star)
+                    }
+                }
             }
 
             titleTextView.text = currentItem.name
@@ -77,9 +100,13 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
         }
 
         holder.itemView.restaurantItem.setOnClickListener{
-            Toast.makeText(it.context,currentItem.name, Toast.LENGTH_SHORT).show()
-            val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem,user)
-            holder.itemView.findNavController().navigate(action)
+            if(isMainScreen){
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem,user)
+                holder.itemView.findNavController().navigate(action)
+            } else{
+                val action = ProfileScreenFragmentDirections.actionProfileScreenFragmentToDetailScreenFragment(currentItem,user)
+                holder.itemView.findNavController().navigate(action)
+            }
         }
 
 
@@ -96,6 +123,18 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
 
     fun setImageData(restaurantImage: List<RestaurantImage>){
         restaurantImageList = restaurantImage
+        notifyDataSetChanged()
+    }
+
+    fun setFavouriteData(favourites: List<Favourite>){
+        favouirtedRestaurantList = favourites
+        notifyDataSetChanged()
+    }
+
+    fun setFavouriteData2(favourites: List<Favourite>){
+        favouirtedRestaurantList = favourites
+        val favouriteRestaurantIds = favouirtedRestaurantList.map{ it -> it.restaurantId}
+        restaurantList = restaurantList.filter{ it -> favouriteRestaurantIds.contains(it.id)}
         notifyDataSetChanged()
     }
 

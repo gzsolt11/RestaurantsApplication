@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.restaurant.R
 import com.example.restaurant.data.imageEntity.RestaurantImage
-import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 import kotlinx.android.synthetic.main.detail_image_item.view.*
-import kotlinx.android.synthetic.main.restaurant_item.view.*
 
-class DetailScreenImageAdapter: RecyclerView.Adapter<DetailScreenImageAdapter.ImageViewHolder>() {
+class DetailScreenImageAdapter(): RecyclerView.Adapter<DetailScreenImageAdapter.ImageViewHolder>() {
 
     private var imageList = emptyList<RestaurantImage>()
 
@@ -21,11 +19,11 @@ class DetailScreenImageAdapter: RecyclerView.Adapter<DetailScreenImageAdapter.Im
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.detail_image_item,
-                parent,
-                false
-            )
+                LayoutInflater.from(parent.context).inflate(
+                        R.layout.detail_image_item,
+                        parent,
+                        false
+                )
         )
     }
 

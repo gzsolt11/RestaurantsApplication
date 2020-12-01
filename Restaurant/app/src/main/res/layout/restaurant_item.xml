@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/adressTextView" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/favouriteImageView"
         android:layout_width="200px"
         android:layout_height="@dimen/height_50dp"
         android:layout_marginTop="@dimen/margin_30px"

@@ -3,6 +3,7 @@ package com.example.restaurant.profileScreen
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -20,19 +21,23 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.restaurant.MainActivity
 import com.example.restaurant.R
+import com.example.restaurant.adapters.RestaurantAdapter
+import com.example.restaurant.data.Resource
 import com.example.restaurant.data.User.User
+import com.example.restaurant.data.favouriteEntity.Favourite
 import com.example.restaurant.data.imageEntity.ProfileImage
-import com.example.restaurant.data.viewmodels.ProfileImageViewModel
-import com.example.restaurant.data.viewmodels.RestaurantViewModel
-import com.example.restaurant.data.viewmodels.UserViewModel
+import com.example.restaurant.data.imageEntity.RestaurantImage
+import com.example.restaurant.data.viewmodels.*
 import com.example.restaurant.databinding.FragmentProfileScreenBinding
 import com.example.restaurant.mainScreen.MainScreenFragmentArgs
 import kotlinx.coroutines.launch
@@ -48,6 +53,11 @@ class ProfileScreenFragment : Fragment() {
     private val args by navArgs<MainScreenFragmentArgs>()
     private lateinit var userList: List<User>
     private var currentUser: User? = null
+    private lateinit var restaurantAdapter: RestaurantAdapter
+    private lateinit var restaurantImageViewModel: RestaurantImageViewModel
+    private lateinit var favouriteViewModel: FavouriteViewModel
+    private var favouriteList = emptyList<Favourite>()
+    private var favouriteRestaurantIds = ArrayList<Int>()
 
     private val CAMERA_REQUEST_CODE = 1
     private val READ_REQUEST_CODE = 2
@@ -68,6 +78,10 @@ class ProfileScreenFragment : Fragment() {
         binding = FragmentProfileScreenBinding.inflate(inflater, container, false)
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         profileImageViewModel = ViewModelProvider(this).get(ProfileImageViewModel::class.java)
+        restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
+        favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
+
+        setUpRecyclerView(args.user)
 
         if(args.user != null){
             currentUser = args.user
@@ -128,6 +142,33 @@ class ProfileScreenFragment : Fragment() {
         }
 
         viewModel = (activity as MainActivity).viewModel
+        viewModel.restaurants.observe(viewLifecycleOwner, Observer {response ->
+            when(response){
+                is Resource.Success -> {
+                    response.data?.let{restaurantsResponse ->
+                        restaurantAdapter.setData(restaurantsResponse.restaurants)
+                    }
+                }
+                is Resource.Error ->{
+                    response.message?.let{ message ->
+                        Log.e(TAG, "An error occured: $message")
+                    }
+                }
+            }
+        })
+
+        restaurantImageViewModel.readAllRestaurantImages.observe(viewLifecycleOwner, Observer {
+            restaurantAdapter.setImageData(it)
+        })
+
+        if(args.user != null){
+            favouriteViewModel.readFavouriteByUserId(args.user!!.id).observe(this.viewLifecycleOwner, {
+                restaurantAdapter.setFavouriteData2(it)
+                favouriteList = it
+            })
+        }
+
+
         return binding.root
     }
 
@@ -251,6 +292,14 @@ class ProfileScreenFragment : Fragment() {
                 }
             }
         }
+    }
+
+
+    private fun setUpRecyclerView(user: User?){
+        restaurantAdapter = RestaurantAdapter(user,false)
+        binding.restaurantRecyclerView.adapter = restaurantAdapter
+        binding.restaurantRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
     }
 
 

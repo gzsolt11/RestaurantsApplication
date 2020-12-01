@@ -161,7 +161,10 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 style="@style/profileElement"
+                android:id="@+id/restaurantRecyclerView"
                 android:layout_width="0dp"
+                android:layout_marginStart="@dimen/margin_10dp"
+                android:layout_marginEnd="@dimen/margin_10dp"
                 android:layout_height="@dimen/size_800px"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
