@@ -39,18 +39,21 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
     override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val currentItem = restaurantList[position]
         holder.itemView.apply{
-            var position2 = 0
+            var positionUserPic = 0
+            var positionNonUserPic = 0
             var kapott = false
             for(i in 0..restaurantImageList.size-1){
                 if(restaurantImageList[i].restaurantId == currentItem.id){
-                    position2 = 0
-                    if(user != null && restaurantImageList[i].userId == user!!.id){
-                        if(restaurantImageList[i].id > restaurantImageList[position2].id) {
-                            position2 = i
+                    if(user != null ){
+                        if(restaurantImageList[i].userId == user!!.id) {
+                            positionUserPic = i
+                            kapott = true
+                        }else{
+                            positionNonUserPic = i
                             kapott = true
                         }
                     }else{
-                        position2 = i
+                        positionNonUserPic = i
                         kapott = true
                     }
                 }
@@ -62,6 +65,12 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
                     .centerCrop()
                     .into(restaurantImageView)
             } else{
+                var position2 = 0
+                if(positionUserPic == 0){
+                    position2 = positionNonUserPic
+                } else{
+                    position2 = positionUserPic
+                }
                 Glide.with(this)
                     .load(restaurantImageList[position2].photo)
                     .placeholder(R.drawable.restaurant_placeholder)

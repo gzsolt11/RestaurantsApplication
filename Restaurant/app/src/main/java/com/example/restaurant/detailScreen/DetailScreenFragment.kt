@@ -22,12 +22,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.restaurant.MainActivity
+import com.example.restaurant.R
 import com.example.restaurant.adapters.DetailScreenImageAdapter
 import com.example.restaurant.data.imageEntity.RestaurantImage
 import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.databinding.FragmentDetailScreenBinding
+import kotlinx.android.synthetic.main.detail_image_item.view.*
 import kotlinx.coroutines.launch
 
 
@@ -66,11 +69,11 @@ class DetailScreenFragment : Fragment() {
 
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Profile"){
-                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToProfileScreenFragment()
+                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToProfileScreenFragment(args.user)
                 findNavController().navigate(action)
             }
             if(it.title.toString() == "Home"){
-                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToMainScreenFragment()
+                val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToMainScreenFragment(args.user)
                 findNavController().navigate(action)
             }
 
@@ -89,6 +92,11 @@ class DetailScreenFragment : Fragment() {
         binding.countryCodeTextView.text = args.restaurant?.country
         binding.phoneNumberTextView.text = args.restaurant?.phone
         binding.priceTextView.text = args.restaurant?.price.toString()
+        Glide.with(this)
+                .load(args.restaurant?.image_url)
+                .placeholder(R.drawable.restaurant_placeholder)
+                .centerCrop()
+                .into(binding.baseRestaurantImage)
 
         binding.callNowImageView.setOnClickListener{
             checkCallPermissions()
@@ -127,9 +135,10 @@ class DetailScreenFragment : Fragment() {
 
         restaurantImageViewModel.readRestaurantImageById(args.restaurant!!.id).observe(this.viewLifecycleOwner, {
 
-            Log.v("UploadedImage", it.toString())
-            if(!it.isEmpty()) {
+            if(it.isNotEmpty()) {
                 detailScreenAdapter.setData(it)
+                binding.restaurantImagesRecyclerView.visibility = View.VISIBLE
+                binding.baseRestaurantImage.visibility = View.INVISIBLE
             }
         })
     }
@@ -247,15 +256,12 @@ class DetailScreenFragment : Fragment() {
         when(requestCode){
             CAMERA_INTENT_CODE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
-                    //binding.profilePictureImageView.setImageBitmap(data.extras?.get("data") as Bitmap)
-                    /*Glide.with(this.requireContext())
-                        .asBitmap()
-                        .load(data.extras?.get("data") as Bitmap)
-                        .circleCrop()
-                        .into(binding.profilePictureImageView)*/
-
+                    var userId = -1
+                    if(args.user != null){
+                        userId = args.user!!.id
+                    }
                     lifecycleScope.launch{
-                        val restaurantImage = RestaurantImage(0,args.restaurant!!.id,args.user!!.id,data.extras?.get("data") as Bitmap)
+                        val restaurantImage = RestaurantImage(0,args.restaurant!!.id,userId,data.extras?.get("data") as Bitmap)
                         restaurantImageViewModel.addRestaurantImage(restaurantImage)
                     }
 
@@ -264,14 +270,8 @@ class DetailScreenFragment : Fragment() {
             GALERY_INTENT_CODE -> {
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     val imageuri = data.data
-                    Log.d("IMAGE",data.data.toString())
                     val inputStream = imageuri?.let { activity?.contentResolver?.openInputStream(it) }
                     var bitmap = BitmapFactory.decodeStream(inputStream)
-                   /* Glide.with(this.requireContext())
-                        .asBitmap()
-                        .load(bitmap)
-                        .circleCrop()
-                        .into(binding.profilePictureImageView)*/
                     var userId = -1
                     if(args.user != null){
                         userId = args.user!!.id
