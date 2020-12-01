@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.restaurant.R
 import com.example.restaurant.data.User.User
+import com.example.restaurant.data.favouriteEntity.Favourite
 import com.example.restaurant.data.imageEntity.RestaurantImage
 import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.UserViewModel
 import com.example.restaurant.mainScreen.MainScreenFragmentDirections
+import com.example.restaurant.profileScreen.ProfileScreenFragmentDirections
 import kotlinx.android.synthetic.main.restaurant_item.view.*
 
-class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
+class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     private var restaurantList = emptyList<Restaurant>()
     private var restaurantImageList = emptyList<RestaurantImage>()
+    private var favouirtedRestaurantList = emptyList<Favourite>()
 
     inner class RestaurantViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     }
@@ -78,6 +81,17 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
                     .into(restaurantImageView)
             }
 
+            if(user != null) {
+                for (element in favouirtedRestaurantList) {
+                    if (element.userId == user!!.id && element.restaurantId == currentItem.id){
+                        favouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                        break
+                    } else{
+                        favouriteImageView.setImageResource(R.drawable.ic_white_star)
+                    }
+                }
+            }
+
             titleTextView.text = currentItem.name
             adressTextView.text = currentItem.address
             priceTextView.text = currentItem.price.toString()
@@ -86,9 +100,13 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
         }
 
         holder.itemView.restaurantItem.setOnClickListener{
-            Toast.makeText(it.context,currentItem.name, Toast.LENGTH_SHORT).show()
-            val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem,user)
-            holder.itemView.findNavController().navigate(action)
+            if(isMainScreen){
+                val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem,user)
+                holder.itemView.findNavController().navigate(action)
+            } else{
+                val action = ProfileScreenFragmentDirections.actionProfileScreenFragmentToDetailScreenFragment(currentItem,user)
+                holder.itemView.findNavController().navigate(action)
+            }
         }
 
 
@@ -105,6 +123,18 @@ class RestaurantAdapter(var user: User?): RecyclerView.Adapter<RestaurantAdapter
 
     fun setImageData(restaurantImage: List<RestaurantImage>){
         restaurantImageList = restaurantImage
+        notifyDataSetChanged()
+    }
+
+    fun setFavouriteData(favourites: List<Favourite>){
+        favouirtedRestaurantList = favourites
+        notifyDataSetChanged()
+    }
+
+    fun setFavouriteData2(favourites: List<Favourite>){
+        favouirtedRestaurantList = favourites
+        val favouriteRestaurantIds = favouirtedRestaurantList.map{ it -> it.restaurantId}
+        restaurantList = restaurantList.filter{ it -> favouriteRestaurantIds.contains(it.id)}
         notifyDataSetChanged()
     }
 

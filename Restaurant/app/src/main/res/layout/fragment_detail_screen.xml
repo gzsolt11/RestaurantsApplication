@@ -62,8 +62,8 @@
                 android:id="@+id/dropDownImageView"
                 android:layout_width="@dimen/size_150px"
                 android:layout_height="@dimen/size_150px"
-                android:src="@drawable/ic_baseline_arrow_drop_down_circle_24"
                 android:layout_marginRight="@dimen/margin_50dp"
+                android:src="@drawable/ic_baseline_arrow_drop_down_circle_24"
                 app:layout_constraintBottom_toBottomOf="@+id/detailsTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/detailsTextView" />
@@ -74,8 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_30px"
                 android:layout_marginEnd="@dimen/margin_30px"
-                android:visibility="gone"
                 android:background="@color/backgroundColor3"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dropDownImageView">
@@ -253,11 +253,12 @@
             <TextView
                 android:id="@+id/callNowTextView"
                 style="@style/restaurantDetailElement"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_30dp"
                 android:gravity="center"
                 android:text="Call now!"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/setAsFavouriteTextView"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailsConstraintLayout" />
 
@@ -270,9 +271,35 @@
                 android:gravity="center"
                 android:src="@drawable/ic_phone"
                 android:text="Call now!"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/callNowTextView"
+                app:layout_constraintStart_toStartOf="@+id/callNowTextView"
                 app:layout_constraintTop_toBottomOf="@+id/callNowTextView" />
+
+
+            <TextView
+                android:id="@+id/setAsFavouriteTextView"
+                style="@style/restaurantDetailElement"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_30dp"
+                android:gravity="center"
+                android:text="Set it as favourite!"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/callNowTextView"
+                app:layout_constraintTop_toBottomOf="@+id/detailsConstraintLayout" />
+
+            <ImageView
+                android:id="@+id/setAsFavouriteImageView"
+                style="@style/restaurantDetailElement"
+                android:layout_width="@dimen/size_150px"
+                android:layout_height="@dimen/size_150px"
+                android:background="@color/backgroundColor"
+                android:gravity="center"
+                android:src="@drawable/ic_white_star"
+                android:text="Call now!"
+                app:layout_constraintEnd_toEndOf="@+id/setAsFavouriteTextView"
+                app:layout_constraintStart_toStartOf="@+id/setAsFavouriteTextView"
+                app:layout_constraintTop_toBottomOf="@+id/setAsFavouriteTextView" />
 
 
             <Button
@@ -285,7 +312,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/callNowImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/setAsFavouriteImageView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

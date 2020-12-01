@@ -14,10 +14,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restaurant.MainActivity
+import com.example.restaurant.R
 import com.example.restaurant.adapters.RestaurantAdapter
 import com.example.restaurant.data.Resource
 import com.example.restaurant.data.User.User
 import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
+import com.example.restaurant.data.viewmodels.FavouriteViewModel
 import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.data.viewmodels.UserViewModel
@@ -26,11 +28,12 @@ import com.example.restaurant.databinding.FragmentMainScreenBinding
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    lateinit var viewModel: RestaurantViewModel
-    lateinit var userViewModel: UserViewModel
-    lateinit var restaurantAdapter: RestaurantAdapter
-    lateinit var restaurantImageViewModel: RestaurantImageViewModel
-    lateinit var sp: SharedPreferences
+    private lateinit var viewModel: RestaurantViewModel
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var restaurantAdapter: RestaurantAdapter
+    private lateinit var restaurantImageViewModel: RestaurantImageViewModel
+    private lateinit var favouriteViewModel: FavouriteViewModel
+    private lateinit var sp: SharedPreferences
     private val args by navArgs<MainScreenFragmentArgs>()
 
     val TAG = "MainScreenFragment"
@@ -55,7 +58,7 @@ class MainScreenFragment : Fragment() {
         viewModel = (activity as MainActivity).viewModel
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
-
+        favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Profile"){
@@ -89,11 +92,17 @@ class MainScreenFragment : Fragment() {
             restaurantAdapter.setImageData(it)
         })
 
+        if(args.user != null) {
+            favouriteViewModel.readFavouriteByUserId(args.user!!.id).observe(this.viewLifecycleOwner, {
+                restaurantAdapter.setFavouriteData(it)
+            })
+        }
+
     }
 
 
     private fun setUpRecyclerView(user: User?){
-        restaurantAdapter = RestaurantAdapter(user)
+        restaurantAdapter = RestaurantAdapter(user,true)
         binding.mainRestaurantRecyclerView.adapter = restaurantAdapter
         binding.mainRestaurantRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 

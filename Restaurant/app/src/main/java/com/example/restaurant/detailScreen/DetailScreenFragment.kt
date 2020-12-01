@@ -26,7 +26,10 @@ import com.bumptech.glide.Glide
 import com.example.restaurant.MainActivity
 import com.example.restaurant.R
 import com.example.restaurant.adapters.DetailScreenImageAdapter
+import com.example.restaurant.data.favouriteEntity.Favourite
 import com.example.restaurant.data.imageEntity.RestaurantImage
+import com.example.restaurant.data.viewmodels.FavouriteViewModel
+import com.example.restaurant.data.viewmodels.ProfileImageViewModel
 import com.example.restaurant.data.viewmodels.RestaurantImageViewModel
 import com.example.restaurant.data.viewmodels.RestaurantViewModel
 import com.example.restaurant.databinding.FragmentDetailScreenBinding
@@ -47,6 +50,8 @@ class DetailScreenFragment : Fragment() {
     private val CAMERA_INTENT_CODE = 5
     private val GALERY_INTENT_CODE = 6
     private lateinit var detailScreenAdapter: DetailScreenImageAdapter
+    private lateinit var favouriteViewModel: FavouriteViewModel
+    private var isFavourited = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +63,7 @@ class DetailScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailScreenBinding.inflate(inflater, container, false)
+        favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
         binding.dropDownImageView.setOnClickListener{
             if(binding.detailsConstraintLayout.visibility == View.GONE){
@@ -100,6 +106,30 @@ class DetailScreenFragment : Fragment() {
 
         binding.callNowImageView.setOnClickListener{
             checkCallPermissions()
+        }
+
+        if(args.user != null) {
+            favouriteViewModel.readFavouriteById(args.user!!.id, args.restaurant!!.id).observe(this.viewLifecycleOwner, {
+
+                Log.v("FAVOURITES",it.toString())
+                if (it.isEmpty()) {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
+                } else {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                    isFavourited = true
+                }
+            })
+
+            binding.setAsFavouriteImageView.setOnClickListener {
+                if (isFavourited) {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
+                    favouriteViewModel.deleteFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                } else {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                    favouriteViewModel.addFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                }
+
+            }
         }
 
         binding.uploadButton.setOnClickListener{
