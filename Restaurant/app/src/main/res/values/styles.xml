@@ -72,5 +72,9 @@
         <item name="itemTextColor">@color/backgroundColor</item>
     </style>
 
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>

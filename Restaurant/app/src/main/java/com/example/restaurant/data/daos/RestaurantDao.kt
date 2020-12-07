@@ -5,7 +5,7 @@ import androidx.room.*
 import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 
 @Dao
-interface RestaurantDao {
+interface  RestaurantDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(restaurant: Restaurant):Long

@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -111,7 +112,7 @@ class DetailScreenFragment : Fragment() {
         if(args.user != null) {
             favouriteViewModel.readFavouriteById(args.user!!.id, args.restaurant!!.id).observe(this.viewLifecycleOwner, {
 
-                Log.v("FAVOURITES",it.toString())
+
                 if (it.isEmpty()) {
                     binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
                 } else {
@@ -119,18 +120,25 @@ class DetailScreenFragment : Fragment() {
                     isFavourited = true
                 }
             })
+        }
 
             binding.setAsFavouriteImageView.setOnClickListener {
-                if (isFavourited) {
-                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
-                    favouriteViewModel.deleteFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
-                } else {
-                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
-                    favouriteViewModel.addFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                if(args.user != null) {
+                    if (isFavourited) {
+                        binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
+                        favouriteViewModel.deleteFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                        isFavourited = false
+                    } else {
+                        binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                        favouriteViewModel.addFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                        isFavourited = true
+                    }
+                }else{
+                    Toast.makeText(this@DetailScreenFragment.requireContext(), "Log in for favourites!", Toast.LENGTH_SHORT).show()
                 }
 
             }
-        }
+
 
         binding.uploadButton.setOnClickListener{
 
@@ -152,6 +160,15 @@ class DetailScreenFragment : Fragment() {
             alert.setTitle("Uploading image")
             alert.show()
 
+        }
+
+        binding.googleMapImageView.setOnClickListener{
+            val gmmIntentUri = Uri.parse("geo:${args.restaurant?.lat},${args.restaurant?.lng}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            mapIntent.resolveActivity(requireActivity().packageManager)?.let {
+                startActivity(mapIntent)
+            }
         }
 
 

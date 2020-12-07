@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:height="@dimen/height_30dp"
                 android:text="Details:"
+                android:textColor="@color/white"
                 android:textSize="@dimen/textSize_20sp"
                 app:layout_constraintEnd_toStartOf="@+id/dropDownImageView"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Adress: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -96,6 +98,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="2942 N Lincoln Ave"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/baseAdressTextView"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -106,6 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="City: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/baseAdressTextView" />
 
@@ -116,6 +120,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="Chicago"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/baseCityTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/baseCityTextView"
@@ -127,6 +132,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="State: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/baseCityTextView" />
 
@@ -138,6 +144,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="0dp"
                     android:text="IL"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/baseStateTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/baseStateTextView"
@@ -149,6 +156,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Area: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/baseStateTextView" />
 
@@ -159,6 +167,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="Chicago / Illinois"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/baseAreaTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/baseStateTextView"
@@ -170,6 +179,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Postal Code: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/baseAreaTextView" />
 
@@ -180,6 +190,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="60657"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/basePostalCodeTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/basePostalCodeTextView"
@@ -191,6 +202,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Country: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/basePostalCodeTextView" />
 
@@ -201,6 +213,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="US"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/baseCountryTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/baseCountryTextView"
@@ -213,6 +226,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Phone Number: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/baseCountryTextView" />
 
@@ -223,6 +237,7 @@
                     android:layout_height="@dimen/height_30dp"
                     android:layout_marginLeft="10dp"
                     android:text="US"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/basePhoneTextView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/basePhoneTextView"
@@ -234,6 +249,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="Price: "
+                    android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/basePhoneTextView" />
 
@@ -243,6 +259,7 @@
                     android:layout_width="182dp"
                     android:layout_height="@dimen/height_30dp"
                     android:text="5"
+                    android:textColor="@color/backgroundColor"
                     app:layout_constraintBottom_toBottomOf="@+id/basePriceTextView"
                     app:layout_constraintStart_toEndOf="@+id/basePriceTextView"
                     app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextView" />
@@ -257,6 +274,7 @@
                 android:layout_height="@dimen/height_30dp"
                 android:gravity="center"
                 android:text="Call now!"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@+id/setAsFavouriteTextView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -283,6 +301,7 @@
                 android:layout_height="@dimen/height_30dp"
                 android:gravity="center"
                 android:text="Set it as favourite!"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/callNowTextView"
@@ -307,12 +326,36 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/height_30dp"
-                android:layout_marginBottom="@dimen/height_50dp"
+                android:backgroundTint="@color/backgroundColor3"
                 android:text="Upload new images!"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/setAsFavouriteImageView" />
+
+            <TextView
+                android:id="@+id/baseGoogleMapTextView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_50dp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_30dp"
+                android:text="Find this restaurant on Google Maps!"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/uploadButton" />
+
+            <ImageView
+                android:id="@+id/googleMapImageView"
+                android:layout_width="150px"
+                android:layout_height="150px"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginBottom="@dimen/margin_50dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/baseGoogleMapTextView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

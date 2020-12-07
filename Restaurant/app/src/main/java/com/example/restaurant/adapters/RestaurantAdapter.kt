@@ -23,8 +23,10 @@ import kotlinx.android.synthetic.main.restaurant_item.view.*
 class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
 
     private var restaurantList = emptyList<Restaurant>()
+    private var allRestaurant = emptyList<Restaurant>()
     private var restaurantImageList = emptyList<RestaurantImage>()
     private var favouirtedRestaurantList = emptyList<Favourite>()
+    var isFavourites = false
 
     inner class RestaurantViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
     }
@@ -65,7 +67,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
                 Glide.with(this)
                     .load(currentItem.image_url)
                     .placeholder(R.drawable.restaurant_placeholder)
-                    .centerCrop()
+                        .circleCrop()
                     .into(restaurantImageView)
             } else{
                 var position2 = 0
@@ -77,7 +79,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
                 Glide.with(this)
                     .load(restaurantImageList[position2].photo)
                     .placeholder(R.drawable.restaurant_placeholder)
-                    .centerCrop()
+                        .circleCrop()
                     .into(restaurantImageView)
             }
 
@@ -118,6 +120,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
 
     fun setData(restaurants: List<Restaurant>){
         restaurantList = restaurants
+        allRestaurant = restaurants
         notifyDataSetChanged()
     }
 
@@ -135,6 +138,19 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
         favouirtedRestaurantList = favourites
         val favouriteRestaurantIds = favouirtedRestaurantList.map{ it -> it.restaurantId}
         restaurantList = restaurantList.filter{ it -> favouriteRestaurantIds.contains(it.id)}
+        notifyDataSetChanged()
+    }
+
+    fun changeToFavourites(){
+        val favouriteRestaurantIds = favouirtedRestaurantList.map{ it -> it.restaurantId}
+        restaurantList = restaurantList.filter{ it -> favouriteRestaurantIds.contains(it.id)}
+        isFavourites = true
+        notifyDataSetChanged()
+    }
+
+    fun changeBackFromFavourites(){
+        restaurantList = allRestaurant
+        isFavourites = false
         notifyDataSetChanged()
     }
 
