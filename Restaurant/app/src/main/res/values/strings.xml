@@ -4,4 +4,13 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="whole_name">%1$s %2$s</string>
+
+    <string-array name="query_parameters">
+        <item>Country</item>
+        <item>State</item>
+        <item>Price</item>
+        <item>Name</item>
+        <item>Address</item>
+        <item>City</item>
+    </string-array>
 </resources>
