@@ -66,6 +66,9 @@ class RestaurantViewModel(val repository: RestaurantAppRepository): ViewModel(){
         searchRestaurants.postValue(handleSearchRestaurantResponse(response))
     }
 
+    /**
+     * Handles the response when no search parameter is added for the restaurants
+     */
     private fun handleRestaurantResponse(response: Response<Restaurants>): Resource<Restaurants>{
         if(response.isSuccessful){
             response.body()?.let{resultResponse ->
@@ -83,6 +86,9 @@ class RestaurantViewModel(val repository: RestaurantAppRepository): ViewModel(){
         return Resource.Error(response.message())
     }
 
+    /**
+     * handles response when search query is used for restaurants
+     */
     private fun handleSearchRestaurantResponse(response: Response<Restaurants>): Resource<Restaurants>{
         if(response.isSuccessful){
             response.body()?.let{resultResponse ->

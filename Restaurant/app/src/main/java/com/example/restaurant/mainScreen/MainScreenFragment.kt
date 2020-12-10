@@ -71,6 +71,7 @@ class MainScreenFragment : Fragment() {
         restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
         favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
+        // setting up navigation
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Profile"){
                 val action = MainScreenFragmentDirections.actionMainScreenFragmentToProfileScreenFragment(args.user)
@@ -79,27 +80,14 @@ class MainScreenFragment : Fragment() {
             false
         }
 
-
+        //setting up recyclerview
         setUpRecyclerView(args.user,true)
 
-       /* binding.queryParameterSpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if(parent?.getItemAtPosition(position).toString() == "Favourites"){
-
-                } else{
-                    restaurantAdapter.changeBackFromFavourites()
-                }
-            }
-
-        }*/
-
+        // adapter for spinner
         var adapter = ArrayAdapter.createFromResource(this.requireContext(),R.array.query_parameters, R.layout.spinner_item)
         binding.queryParameterSpinner.adapter = adapter
 
+        // clicking on favourite icon
         binding.favouriteImageView.setOnClickListener{
             if(!restaurantAdapter.isFavourites) {
                 if (args.user == null) {
@@ -115,6 +103,7 @@ class MainScreenFragment : Fragment() {
 
         }
 
+        // listener for the search text edit
         var job: Job? = null
         binding.searchEditText.addTextChangedListener {editable ->
             job?.cancel()
@@ -142,6 +131,7 @@ class MainScreenFragment : Fragment() {
             }
         }
 
+        // get the restaurants based on query and set it into the recyclerview
         viewModel.searchRestaurants.observe(viewLifecycleOwner, Observer {response ->
             when(response){
                 is Resource.Success -> {
@@ -159,12 +149,13 @@ class MainScreenFragment : Fragment() {
             }
         })
 
+        // at start search restaurants by country
         viewModel.searchRestaurantsByCountry("us")
-
+        //get the restaurant images and add it into the recyclerview
         restaurantImageViewModel.readAllRestaurantImages.observe(viewLifecycleOwner, Observer {
             restaurantAdapter.setImageData(it)
         })
-
+        // if the user is not null then ask for the users favourites and add it to the recyclerview
         if(args.user != null) {
             favouriteViewModel.readFavouriteByUserId(args.user!!.id).observe(this.viewLifecycleOwner, {
                 restaurantAdapter.setFavouriteData(it)
@@ -177,6 +168,9 @@ class MainScreenFragment : Fragment() {
     var isLastPage = false
     var isScrolling = false
 
+    /**
+     * Adding scroll listener to the recyclerview , if the user reaches the bottom then make new elements load
+     */
     val scrollListener = object :RecyclerView.OnScrollListener(){
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)

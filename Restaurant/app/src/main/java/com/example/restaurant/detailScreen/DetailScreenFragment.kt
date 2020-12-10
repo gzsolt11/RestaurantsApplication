@@ -54,9 +54,6 @@ class DetailScreenFragment : Fragment() {
     private lateinit var favouriteViewModel: FavouriteViewModel
     private var isFavourited = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +63,7 @@ class DetailScreenFragment : Fragment() {
         binding = FragmentDetailScreenBinding.inflate(inflater, container, false)
         favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
+        // More details
         binding.dropDownImageView.setOnClickListener{
             if(binding.detailsConstraintLayout.visibility == View.GONE){
                 binding.detailsConstraintLayout.visibility = View.VISIBLE
@@ -74,6 +72,7 @@ class DetailScreenFragment : Fragment() {
             }
         }
 
+        // Navigation
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Profile"){
                 val action = DetailScreenFragmentDirections.actionDetailScreenFragmentToProfileScreenFragment(args.user)
@@ -105,14 +104,14 @@ class DetailScreenFragment : Fragment() {
                 .centerCrop()
                 .into(binding.baseRestaurantImage)
 
+        // Calling the restaurant
         binding.callNowImageView.setOnClickListener{
             checkCallPermissions()
         }
 
+        // check if it is favourited for the user if the user is not null
         if(args.user != null) {
             favouriteViewModel.readFavouriteById(args.user!!.id, args.restaurant!!.id).observe(this.viewLifecycleOwner, {
-
-
                 if (it.isEmpty()) {
                     binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
                 } else {
@@ -122,30 +121,31 @@ class DetailScreenFragment : Fragment() {
             })
         }
 
-            binding.setAsFavouriteImageView.setOnClickListener {
-                if(args.user != null) {
-                    if (isFavourited) {
-                        binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
-                        favouriteViewModel.deleteFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
-                        isFavourited = false
-                    } else {
-                        binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
-                        favouriteViewModel.addFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
-                        isFavourited = true
-                    }
-                }else{
-                    Toast.makeText(this@DetailScreenFragment.requireContext(), "Log in for favourites!", Toast.LENGTH_SHORT).show()
+        // clicking on the favourite star
+        binding.setAsFavouriteImageView.setOnClickListener {
+            if(args.user != null) {
+                if (isFavourited) {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_white_star)
+                    favouriteViewModel.deleteFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                    isFavourited = false
+                } else {
+                    binding.setAsFavouriteImageView.setImageResource(R.drawable.ic_yellow_star)
+                    favouriteViewModel.addFavourite(Favourite(args.user!!.id, args.restaurant!!.id))
+                    isFavourited = true
                 }
-
+            }else{
+                Toast.makeText(this@DetailScreenFragment.requireContext(), "Log in for favourites!", Toast.LENGTH_SHORT).show()
             }
 
+        }
 
+        // uploading image
         binding.uploadButton.setOnClickListener{
-
+            // check for write permission
             checkWriteStoragePermissions()
 
+            // popup window ask how we want to upload image
             val dialogBuilder = AlertDialog.Builder(this.requireContext())
-
             dialogBuilder.setMessage("How do you want to upload image ?")
                 .setCancelable(true)
                 .setPositiveButton("Camera", DialogInterface.OnClickListener { dialog, id ->
@@ -162,6 +162,7 @@ class DetailScreenFragment : Fragment() {
 
         }
 
+        // clicking on the map icon will take us to the google maps
         binding.googleMapImageView.setOnClickListener{
             val gmmIntentUri = Uri.parse("geo:${args.restaurant?.lat},${args.restaurant?.lng}")
             val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
@@ -181,7 +182,6 @@ class DetailScreenFragment : Fragment() {
         setUpRecyclerView()
 
         restaurantImageViewModel.readRestaurantImageById(args.restaurant!!.id).observe(this.viewLifecycleOwner, {
-
             if(it.isNotEmpty()) {
                 detailScreenAdapter.setData(it)
                 binding.restaurantImagesRecyclerView.visibility = View.VISIBLE
@@ -195,6 +195,9 @@ class DetailScreenFragment : Fragment() {
         super.onDestroyView()
     }
 
+    /**
+     * Check for permission of call and if it is not granted then asks for it
+     */
     private fun checkCallPermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
             Manifest.permission.CALL_PHONE)
@@ -212,7 +215,9 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Check for permission to the camera and if it is not granted then asks for it
+     */
     private fun checkCameraPermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
             Manifest.permission.CAMERA)
@@ -230,6 +235,9 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
+    /**
+     * Check for permission of reading storage and if it is not granted then asks for it
+     */
     private fun checkReadStoragePermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -246,6 +254,9 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
+    /**
+     * Check for permission of writing storage and if it is not granted then asks for it
+     */
     private fun checkWriteStoragePermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -258,7 +269,9 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Get the results from asking permissions and do the intents
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
             CALL_PHONE_REQUEST -> {
@@ -298,7 +311,9 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Based on the result of the intents do certain things
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
             CAMERA_INTENT_CODE -> {
