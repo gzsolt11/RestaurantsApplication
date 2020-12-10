@@ -35,10 +35,7 @@ class MainActivity : AppCompatActivity() {
         val repository = RestaurantAppRepository(MyDatabase(this))
         val restaurantViewModelProviderFactory =  RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, restaurantViewModelProviderFactory).get(RestaurantViewModel::class.java)
-
-        sp = getSharedPreferences("login",MODE_PRIVATE);
-
-        Log.v("ISLOGGEDIN",sp.getBoolean("logged",false).toString());
+        
 
         val navController = findNavController(R.id.navigationHostFragment)
         bottomNavigation = binding.bottomNavMenu

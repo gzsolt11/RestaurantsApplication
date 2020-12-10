@@ -90,7 +90,6 @@ class LoginFragment : Fragment() {
 
     private fun getUser(firstName: String, lastName: String,password:String): User?{
         for(element in userList){
-            Log.v("KEPUSER",element.toString());
             if(element.firstName == firstName && element.lastName == lastName && element.password == password){
                 return element
             }
