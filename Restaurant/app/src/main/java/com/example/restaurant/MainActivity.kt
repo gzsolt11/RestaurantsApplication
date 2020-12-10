@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val repository = RestaurantAppRepository(MyDatabase(this))
         val restaurantViewModelProviderFactory =  RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, restaurantViewModelProviderFactory).get(RestaurantViewModel::class.java)
-        
+
 
         val navController = findNavController(R.id.navigationHostFragment)
         bottomNavigation = binding.bottomNavMenu

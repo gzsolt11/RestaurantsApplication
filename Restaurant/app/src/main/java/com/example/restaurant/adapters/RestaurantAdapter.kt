@@ -47,6 +47,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
             var positionUserPic = 0
             var positionNonUserPic = 0
             var kapott = false
+            // megkeresi a felhasznalo kepet ha felotltott a bizonyos vendeglohoz es azt rakja elore ha nem kapott akkor a legujabb kepet
             for(i in 0..restaurantImageList.size-1){
                 if(restaurantImageList[i].restaurantId == currentItem.id){
                     if(user != null ){
@@ -82,7 +83,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
                         .circleCrop()
                     .into(restaurantImageView)
             }
-
+            // ha be van csillagozva akkor sargara rakja a csillagot
             if(user != null) {
                 for (element in favouirtedRestaurantList) {
                     if (element.userId == user!!.id && element.restaurantId == currentItem.id){
@@ -100,7 +101,7 @@ class RestaurantAdapter(var user: User?, var isMainScreen: Boolean): RecyclerVie
 
 
         }
-
+        // navigation
         holder.itemView.restaurantItem.setOnClickListener{
             if(isMainScreen){
                 val action = MainScreenFragmentDirections.actionMainScreenFragmentToDetailScreenFragment(currentItem,user)

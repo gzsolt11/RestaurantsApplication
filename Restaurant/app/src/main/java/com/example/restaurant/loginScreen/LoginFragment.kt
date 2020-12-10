@@ -38,15 +38,18 @@ class LoginFragment : Fragment() {
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        // clicking on registerbutton
         binding.registerButton.setOnClickListener{
             val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             findNavController().navigate(action)
         }
 
+        // clicking on loginButton
         binding.loginButton.setOnClickListener{
             loginUser()
         }
 
+        // setting up navigation
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Home"){
                 Log.v("NAVIGATION", it.title.toString())
@@ -57,6 +60,7 @@ class LoginFragment : Fragment() {
             false
         }
 
+        // reading all users from the database
         userViewModel.readAllUsers.observe(viewLifecycleOwner, Observer {user ->
             userList = user
         })
@@ -64,6 +68,9 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * check if the input fields are correct and if so then get the user from the database
+     */
     private fun loginUser(){
         val firstName = binding.firstNameEditText.text.toString()
         val lastName = binding.lastNameEditText.text.toString()

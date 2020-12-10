@@ -83,6 +83,7 @@ class ProfileScreenFragment : Fragment() {
 
         setUpRecyclerView(args.user)
 
+        // if the user is logged in then creates view else takes back to login screen
         if(args.user != null){
             currentUser = args.user
             binding.userNameTextView.text = getString(R.string.whole_name, currentUser?.lastName, currentUser?.firstName)
@@ -107,6 +108,7 @@ class ProfileScreenFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        // setting up navigation
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
             if(it.title.toString() == "Home"){
                 val action = ProfileScreenFragmentDirections.actionProfileScreenFragmentToMainScreenFragment(args.user)
@@ -117,7 +119,7 @@ class ProfileScreenFragment : Fragment() {
         }
 
 
-
+        // clicking on profile picture to upload
         binding.profilePictureImageView.setOnClickListener{
             Toast.makeText(this.requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
 
@@ -142,6 +144,7 @@ class ProfileScreenFragment : Fragment() {
         }
 
         viewModel = (activity as MainActivity).viewModel
+        // set the data for the recyclerview in the profile screen
         viewModel.restaurants.observe(viewLifecycleOwner, Observer {response ->
             when(response){
                 is Resource.Success -> {
@@ -156,11 +159,12 @@ class ProfileScreenFragment : Fragment() {
                 }
             }
         })
-
+        //set images for the restaurants
         restaurantImageViewModel.readAllRestaurantImages.observe(viewLifecycleOwner, Observer {
             restaurantAdapter.setImageData(it)
         })
 
+        // show only the favourited images
         if(args.user != null){
             favouriteViewModel.readFavouriteByUserId(args.user!!.id).observe(this.viewLifecycleOwner, {
                 restaurantAdapter.setFavouriteData2(it)
@@ -184,7 +188,9 @@ class ProfileScreenFragment : Fragment() {
     }
 
 
-
+    /**
+     * checks for permission and ask for it if it is not granted
+     */
     private fun checkCameraPermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.CAMERA)
@@ -201,7 +207,9 @@ class ProfileScreenFragment : Fragment() {
             }
         }
     }
-
+    /**
+     * checks for permission and ask for it if it is not granted
+     */
     private fun checkReadStoragePermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -218,6 +226,9 @@ class ProfileScreenFragment : Fragment() {
         }
     }
 
+    /**
+     * checks for permission and ask for it if it is not granted
+     */
     private fun checkWriteStoragePermissions() {
         val permission = ContextCompat.checkSelfPermission(this.requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -230,7 +241,9 @@ class ProfileScreenFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Handles the results of the permissions, call intents
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode) {
             CAMERA_REQUEST_CODE -> {
@@ -258,6 +271,9 @@ class ProfileScreenFragment : Fragment() {
         }
     }
 
+    /***
+     * on the results of the intent do certain things
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(requestCode){
             CAMERA_INTENT_CODE -> {
