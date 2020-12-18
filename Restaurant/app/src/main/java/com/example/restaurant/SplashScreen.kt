@@ -5,8 +5,16 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.restaurant.data.MyDatabase
+import com.example.restaurant.data.repositories.RestaurantAppRepository
+import com.example.restaurant.data.viewmodels.RestaurantViewModel
+import com.example.restaurant.data.viewmodels.RestaurantViewModelFactory
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
 class SplashScreen : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

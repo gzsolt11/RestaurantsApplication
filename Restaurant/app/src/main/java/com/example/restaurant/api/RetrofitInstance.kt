@@ -11,7 +11,8 @@ class RetrofitInstance {
      * Creating a single retrofit instance when a retrofit instance is called
      */
     companion object{
-        private var BASE_URL = "http://opentable.herokuapp.com/api/"
+        //private var BASE_URL = "http://opentable.herokuapp.com/api/"
+        private var BASE_URL = "https://ratpark-api.imok.space/"
 
         private val retrofit by lazy{
             val logging = HttpLoggingInterceptor()

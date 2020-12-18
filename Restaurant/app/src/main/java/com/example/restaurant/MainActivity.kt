@@ -3,7 +3,6 @@ package com.example.restaurant
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityMainBinding
-    lateinit var sp: SharedPreferences
     lateinit var bottomNavigation: BottomNavigationView
 
     lateinit var viewModel: RestaurantViewModel
@@ -35,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         val repository = RestaurantAppRepository(MyDatabase(this))
         val restaurantViewModelProviderFactory =  RestaurantViewModelFactory(repository)
         viewModel = ViewModelProvider(this, restaurantViewModelProviderFactory).get(RestaurantViewModel::class.java)
-
 
         val navController = findNavController(R.id.navigationHostFragment)
         bottomNavigation = binding.bottomNavMenu
