@@ -1,11 +1,23 @@
 package com.example.restaurant.data.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.restaurant.api.RetrofitInstance
 import com.example.restaurant.data.MyDatabase
+import com.example.restaurant.data.restaurantEntityAndResponse.Restaurant
 
 class RestaurantAppRepository(
     val db: MyDatabase
 ) {
+
+    val allRestaurant: LiveData<List<Restaurant>> = db.restaurantDao().getAllRestaurants()
+
+    /**
+     * Add a new restaurant into the database
+     * @param restaurant - restaurant that will be added to the database
+     */
+    suspend fun addRestaurant(restaurant: Restaurant){
+        db.restaurantDao().insert(restaurant)
+    }
 
     /**
      * Get all restaurants for a certain country

@@ -156,6 +156,12 @@ class ProfileScreenFragment : Fragment() {
                     response.message?.let{ message ->
                         Log.e(TAG, "An error occured: $message")
                     }
+                    /**
+                     * If the web api does not work it will use the local file
+                     */
+                    viewModel.databaseRestaurants.observe(viewLifecycleOwner,{ it ->
+                        restaurantAdapter.setData(it)
+                    })
                 }
             }
         })

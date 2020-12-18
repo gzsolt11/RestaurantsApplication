@@ -45,14 +45,19 @@ class MainScreenFragment : Fragment() {
     private lateinit var favouriteViewModel: FavouriteViewModel
     private lateinit var sp: SharedPreferences
     private val args by navArgs<MainScreenFragmentArgs>()
-    private val QUERY_PAGE_SIZE = 25
+    private val QUERY_PAGE_SIZE = 10
 
     val TAG = "MainScreenFragment"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sp = this.requireContext().getSharedPreferences("userid",MODE_PRIVATE);
+        sp = this.requireContext().getSharedPreferences("userid",MODE_PRIVATE)
+
+        viewModel = (activity as MainActivity).viewModel
+        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
+        favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
     }
 
@@ -65,11 +70,6 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = (activity as MainActivity).viewModel
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        restaurantImageViewModel= ViewModelProvider(this).get(RestaurantImageViewModel::class.java)
-        favouriteViewModel = ViewModelProvider(this).get(FavouriteViewModel::class.java)
 
         // setting up navigation
         (activity as MainActivity).bottomNavigation.setOnNavigationItemSelectedListener {
@@ -102,7 +102,9 @@ class MainScreenFragment : Fragment() {
             }
 
         }
-
+        if(binding.searchEditText.text.isEmpty()){
+            viewModel.searchRestaurantsByCountry("US")
+        }
         // listener for the search text edit
         var job: Job? = null
         binding.searchEditText.addTextChangedListener {editable ->
@@ -110,6 +112,8 @@ class MainScreenFragment : Fragment() {
             job = MainScope().launch {
                 delay(500L)
                 editable?.let{
+
+
                     if(editable.toString().isNotEmpty()){
                         viewModel.searchRestaurantResponse = null
                         viewModel.searchRestaurantsPage = 1
@@ -121,36 +125,44 @@ class MainScreenFragment : Fragment() {
                             "City" -> viewModel.searchRestaurantsByCity(binding.searchEditText.text.toString())
                             "Address" -> viewModel.searchRestaurantsByAddress(binding.searchEditText.text.toString())
                         }
-                    }/*else{
+                        Log.v("vendeglok", viewModel.searchRestaurants.value?.data?.restaurants.toString())
+                    }else{
                         viewModel.searchRestaurantResponse = null
                         viewModel.searchRestaurantsPage = 1
-                        viewModel.searchRestaurantsByCountry("us")
-                        binding.queryParameterSpinner.setSelection(1)
-                    }*/
+                        viewModel.searchRestaurantsByCountry("US")
+                        binding.queryParameterSpinner.setSelection(0)
+                    }
                 }
             }
         }
 
-        // get the restaurants based on query and set it into the recyclerview
         viewModel.searchRestaurants.observe(viewLifecycleOwner, Observer {response ->
             when(response){
                 is Resource.Success -> {
                     response.data?.let{restaurantsResponse ->
                         restaurantAdapter.setData(restaurantsResponse.restaurants)
                         val totalPages = restaurantsResponse.total_entries / QUERY_PAGE_SIZE + 2
-                        isLastPage = viewModel.restaurantsPage == totalPages
+                        isLastPage = viewModel.searchRestaurantsPage == totalPages
                     }
                 }
                 is Resource.Error ->{
                     response.message?.let{ message ->
                         Log.e(TAG, "An error occured: $message")
                     }
+                    /**
+                     * If the web api does not work then it will use the local json file
+                     */
+                    viewModel.databaseRestaurants.observe(viewLifecycleOwner,{ it ->
+                        if(it.isEmpty()){
+                            viewModel.addJsonToDatabase(context)
+                        }
+                        restaurantAdapter.setData(it)
+
+                    })
                 }
             }
         })
 
-        // at start search restaurants by country
-        viewModel.searchRestaurantsByCountry("us")
         //get the restaurant images and add it into the recyclerview
         restaurantImageViewModel.readAllRestaurantImages.observe(viewLifecycleOwner, Observer {
             restaurantAdapter.setImageData(it)
@@ -180,6 +192,9 @@ class MainScreenFragment : Fragment() {
             }
         }
 
+        /**
+         * On scroll calculates if new pages has to be loaded or not
+         */
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
 
@@ -190,12 +205,21 @@ class MainScreenFragment : Fragment() {
 
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
+
+            Log.v("SCROLL",isAtLastItem.toString())
             val isNotAtBeginning = firstVisibleItemPosition >= 0
             val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning && isTotalMoreThanVisible
                     && isScrolling
             if(shouldPaginate){
-                viewModel.getRestaurants("US")
+                when(binding.queryParameterSpinner.selectedItem.toString()){
+                    "Country" -> viewModel.searchRestaurantsByCountry(binding.searchEditText.text.toString())
+                    "State" -> viewModel.searchRestaurantsByState(binding.searchEditText.text.toString())
+                    "Price" -> viewModel.searchRestaurantsByPrice("us",binding.searchEditText.text.toString())
+                    "Name" -> viewModel.searchRestaurantsByName(binding.searchEditText.text.toString())
+                    "City" -> viewModel.searchRestaurantsByCity(binding.searchEditText.text.toString())
+                    "Address" -> viewModel.searchRestaurantsByAddress(binding.searchEditText.text.toString())
+                }
                 isScrolling = false
             }
         }
